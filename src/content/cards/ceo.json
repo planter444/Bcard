@@ -1,0 +1,14 @@
+{
+  "slug": "ceo",
+  "order": 1,
+  "name": "CEO Name",
+  "title": "Chief Executive Officer",
+  "organization": "Your Organization",
+  "phone": "+000 000 000 000",
+  "email": "ceo@example.com",
+  "website": "https://example.com",
+  "image": "/uploads/cards/ceo-card.svg",
+  "backgroundColor": "#020617",
+  "backgroundImage": "",
+  "accentColor": "#38bdf8"
+}

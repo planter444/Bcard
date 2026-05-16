@@ -1,0 +1,9 @@
+{
+  "slug": "admin",
+  "order": 4,
+  "label": "Admin",
+  "image": "",
+  "backgroundColor": "#0f172a",
+  "backgroundImage": "",
+  "accentColor": "#f59e0b"
+}

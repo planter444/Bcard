@@ -1,0 +1,30 @@
+backend:
+  name: git-gateway
+  branch: main
+
+local_backend: true
+media_folder: public/uploads/cards
+public_folder: /uploads/cards
+
+collections:
+  - name: cards
+    label: Business Cards
+    folder: src/content/cards
+    create: true
+    extension: json
+    format: json
+    slug: "{{slug}}"
+    identifier_field: name
+    fields:
+      - { label: Slug, name: slug, widget: string, hint: "Use lowercase letters, numbers, and hyphens. Example: ceo" }
+      - { label: Display Order, name: order, widget: number, default: 10, value_type: int }
+      - { label: Name, name: name, widget: string }
+      - { label: Title, name: title, widget: string }
+      - { label: Organization, name: organization, widget: string }
+      - { label: Phone, name: phone, widget: string, required: false }
+      - { label: Email, name: email, widget: string, required: false }
+      - { label: Website, name: website, widget: string, required: false }
+      - { label: Business Card Image, name: image, widget: image, required: false }
+      - { label: Background Color, name: backgroundColor, widget: color, default: "#020617", required: false }
+      - { label: Background Image, name: backgroundImage, widget: image, required: false }
+      - { label: Accent Color, name: accentColor, widget: color, default: "#38bdf8", required: false }
