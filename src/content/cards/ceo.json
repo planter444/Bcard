@@ -1,14 +1,15 @@
 {
-  "slug": "ceo",
-  "order": 1,
   "name": "CEO Name",
-  "title": "Chief Executive Officer",
-  "organization": "Your Organization",
-  "phone": "+000 000 000 000",
-  "email": "ceo@example.com",
-  "website": "https://example.com",
-  "image": "/uploads/cards/ceo-card.svg",
-  "backgroundColor": "#020617",
+  "slug": "Cynthia",
   "backgroundImage": "",
-  "accentColor": "#38bdf8"
+  "phone": "+000 000 000 000",
+  "order": 1,
+  "organization": "Your Organization",
+  "label": "CEO",
+  "backgroundColor": "#020617",
+  "title": "Chief Executive Officer",
+  "accentColor": "#1d7ca5",
+  "website": "https://example.com",
+  "image": "/uploads/cards/strathmore-energy-research-center-keri-rd-off-ole-sangale-rd-nairobi-kenya.png",
+  "email": "ceo@example.com"
 }
