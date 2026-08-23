@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { createRoot } from 'react-dom/client';
 import { AlertCircle, Download } from 'lucide-react';
 import './styles.css';
@@ -35,6 +35,7 @@ function buildBackground(card) {
 }
 
 function CardPage({ card }) {
+  const cardRef = useRef(null);
   const label = getCardLabel(card);
   const style = {
     '--accent': card.accentColor || '#38bdf8',
@@ -47,9 +48,71 @@ function CardPage({ card }) {
   }
 
   const handleDownload = async () => {
-    if (!card.image) return;
+    if (!card.image || !cardRef.current) return;
     
     try {
+      // Load the image
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.src = card.image;
+      
+      await new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = reject;
+      });
+
+      // Create canvas to capture the card with border radius
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      
+      // Get the displayed dimensions
+      const cardImage = cardRef.current.querySelector('.business-card-image');
+      const rect = cardImage.getBoundingClientRect();
+      
+      // Set canvas size to match the image
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      
+      // Calculate scale ratio
+      const scaleX = canvas.width / rect.width;
+      const scaleY = canvas.height / rect.height;
+      
+      // Apply border radius clipping
+      const borderRadius = parseFloat(getComputedStyle(cardImage).borderRadius) * Math.max(scaleX, scaleY);
+      
+      // Create rounded rectangle path
+      ctx.beginPath();
+      const x = 0, y = 0, w = canvas.width, h = canvas.height, r = borderRadius;
+      ctx.moveTo(x + r, y);
+      ctx.lineTo(x + w - r, y);
+      ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+      ctx.lineTo(x + w, y + h - r);
+      ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+      ctx.lineTo(x + r, y + h);
+      ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+      ctx.lineTo(x, y + r);
+      ctx.quadraticCurveTo(x, y, x + r, y);
+      ctx.closePath();
+      ctx.clip();
+      
+      // Draw the image
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      
+      // Convert to blob and download
+      canvas.toBlob((blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${label.replace(/\s+/g, '-').toLowerCase()}-business-card.png`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+      }, 'image/png');
+      
+    } catch (error) {
+      console.error('Download failed:', error);
+      // Fallback to simple download
       const response = await fetch(card.image);
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
@@ -60,15 +123,13 @@ function CardPage({ card }) {
       a.click();
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
-    } catch (error) {
-      console.error('Download failed:', error);
     }
   };
 
   return (
     <main className="card-scene" style={style}>
       <div className="ambient-grid" />
-      <section className="card-shell" aria-label={`${label} business card`}>
+      <section className="card-shell" ref={cardRef} aria-label={`${label} business card`}>
         {card.image ? (
           <img className="business-card-image" src={card.image} alt={`${label} business card`} />
         ) : (
