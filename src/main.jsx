@@ -135,13 +135,13 @@ function CardPage({ card }) {
         ) : (
           <div className="missing-card-image">Upload a business card image for {label}.</div>
         )}
-        {card.image && (
-          <button className="download-button" onClick={handleDownload} aria-label="Download business card">
-            <Download size={16} />
-            <span>Download Card</span>
-          </button>
-        )}
       </section>
+      {card.image && (
+        <button className="download-button" onClick={handleDownload} aria-label="Download business card">
+          <Download size={16} />
+          <span>Download Card</span>
+        </button>
+      )}
     </main>
   );
 }
