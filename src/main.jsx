@@ -137,9 +137,8 @@ function CardPage({ card }) {
         )}
         {card.image && (
           <button className="download-button" onClick={handleDownload} aria-label="Download business card">
-            <Download size={14} />
-            <span className="desktop-text">Download Card</span>
-            <span className="mobile-text">Download</span>
+            <Download size={16} />
+            <span>Download Card</span>
           </button>
         )}
       </section>
