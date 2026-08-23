@@ -1,8 +1,8 @@
 {
-  "slug": "mel",
-  "order": 2,
+  "slug": "Wanjiku",
+  "order": 4,
   "label": "MEL",
-  "image": "",
+  "image": "/uploads/cards/wanjiku.png",
   "backgroundColor": "#111827",
   "backgroundImage": "",
   "accentColor": "#22c55e"
