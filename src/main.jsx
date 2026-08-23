@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { AlertCircle } from 'lucide-react';
+import { AlertCircle, Download } from 'lucide-react';
 import './styles.css';
 
 const cardModules = import.meta.glob('./content/cards/*.json', { eager: true });
@@ -46,6 +46,25 @@ function CardPage({ card }) {
     style.backgroundPosition = 'center';
   }
 
+  const handleDownload = async () => {
+    if (!card.image) return;
+    
+    try {
+      const response = await fetch(card.image);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${label.replace(/\s+/g, '-').toLowerCase()}-business-card.png`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (error) {
+      console.error('Download failed:', error);
+    }
+  };
+
   return (
     <main className="card-scene" style={style}>
       <div className="ambient-grid" />
@@ -54,6 +73,12 @@ function CardPage({ card }) {
           <img className="business-card-image" src={card.image} alt={`${label} business card`} />
         ) : (
           <div className="missing-card-image">Upload a business card image for {label}.</div>
+        )}
+        {card.image && (
+          <button className="download-button" onClick={handleDownload} aria-label="Download business card">
+            <Download size={20} />
+            <span>Download Card</span>
+          </button>
         )}
       </section>
     </main>
