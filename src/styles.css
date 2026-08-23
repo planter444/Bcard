@@ -57,22 +57,21 @@ a {
   box-shadow: 0 34px 90px rgba(0,0,0,0.45), 0 0 90px color-mix(in srgb, var(--accent), transparent 62%);
   border: 1px solid rgba(255,255,255,0.24);
   backdrop-filter: blur(20px);
-  transform: perspective(1300px) rotateX(1deg);
+  transform: perspective(1300px) rotateX(1deg) scale(0.85);
 }
 
 .download-button {
   position: fixed;
   top: 95%;
-  right: 0;
+  right: 5px;
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 12px 20px;
-  border-radius: 999px 0 0 999px;
+  border-radius: 999px;
   background: #000000;
   color: #6ec400;
   border: 2px solid #6ec400;
-  border-right: none;
   font-size: 0.9rem;
   font-weight: 800;
   cursor: pointer;
@@ -264,11 +263,11 @@ a {
 
   .download-button {
     top: 85%;
-    right: 0;
+    right: 5px;
     padding: 12px 18px;
     font-size: 0.85rem;
     gap: 8px;
-    border-radius: 999px 0 0 999px;
+    border-radius: 999px;
     transform: translateY(-50%);
   }
 
